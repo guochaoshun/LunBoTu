@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^callBackBlock)(id data);
 @interface MainADView : UIView
 
+@property (nonatomic,assign) CGFloat timerInterval ;
 @property (nonatomic,strong) NSArray * dataSourse ;
 @property (nonatomic,copy) callBackBlock callBack ;
 

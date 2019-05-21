@@ -24,6 +24,7 @@
     // 主要参考代码 : https://github.com/orzzh/WLScrollView , 这个是用scrollview做的,然后自己写的cell复用,干嘛这么复杂啊,所以我的例子直接用了UICollectionView
     MainADView * main = [[MainADView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 200)];
     main.dataSourse = @[@"1",@"2",@"3",@"4",];
+    main.timerInterval = 3;
     [main setCallBack:^(id  _Nonnull data) {
         NSLog(@"对应的model数据 : %@",data);
     }];

@@ -12,7 +12,7 @@
 @interface MainADView ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (strong, nonatomic) UICollectionView *colloectView;
-
+@property (nonatomic,strong) NSTimer * timer ;
 
 @property (nonatomic,assign) CGFloat startX ;
 @property (nonatomic,assign) CGFloat endX ;
@@ -34,9 +34,36 @@
         
         [self scrollViewDidScroll:self.colloectView];
         
+
     });
 }
 
+- (void)setTimerInterval:(CGFloat)timerInterval {
+    _timerInterval = timerInterval;
+    if (timerInterval <= 0) {
+        [_timer invalidate];
+        _timer = nil;
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    _timer = [NSTimer timerWithTimeInterval:timerInterval repeats:YES block:^(NSTimer * _Nonnull timer) {
+        
+        UICollectionViewCell * rightCell = weakSelf.colloectView.visibleCells.firstObject ;
+        
+        for (UICollectionViewCell * cell in weakSelf.colloectView.visibleCells) {
+            if (cell.frame.origin.x>rightCell.frame.origin.x) {
+                rightCell = cell;
+            }
+        }
+        
+        [weakSelf.colloectView scrollToItemAtIndexPath:[weakSelf.colloectView indexPathForCell:rightCell] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    }];
+    [_timer fire];
+    // _timer加入的是NSDefaultRunLoopMode,没有加入NSEventTrackingRunLoopMode,所以拖动的时候不需要在停止timer
+    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSDefaultRunLoopMode];
+    
+    
+}
 
 
 // NSInteger的取值范围是2^63-1,9 223 372 036 854 775 807大约是9*10^18,所以肯定不会超的
@@ -115,7 +142,7 @@
         
         CGFloat d = fabs(centerPoint.x - ScreenWidth*0.5)/cell.contentView.bounds.size.width;
         // 中间的为1,旁边2个为0.9
-        CGFloat scale = 1-0.2*d ;
+        CGFloat scale = 1-0.1*d ;
         cell.layer.transform = CATransform3DMakeScale(scale, scale, 1);
         
         
