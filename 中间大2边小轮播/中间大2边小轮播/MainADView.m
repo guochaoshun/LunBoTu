@@ -171,7 +171,6 @@
         // 设置间距,也可以控制cell之间的缝隙大小
         layout.minimumLineSpacing = 2;
         _colloectView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
-        _colloectView.backgroundColor = [UIColor orangeColor];
         _colloectView.delegate = self;
         _colloectView.dataSource = self;
         _colloectView.backgroundColor = [UIColor whiteColor];
