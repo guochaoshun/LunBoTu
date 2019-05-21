@@ -56,7 +56,9 @@
             }
         }
         
-        [weakSelf.colloectView scrollToItemAtIndexPath:[weakSelf.colloectView indexPathForCell:rightCell] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        [weakSelf.colloectView scrollToItemAtIndexPath:[weakSelf.colloectView indexPathForCell:rightCell]
+                                      atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                              animated:YES];
     }];
     [_timer fire];
     // _timer加入的是NSDefaultRunLoopMode,没有加入NSEventTrackingRunLoopMode,所以拖动的时候不需要在停止timer
@@ -84,7 +86,9 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     _startX = scrollView.contentOffset.x;
 }
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
+                     withVelocity:(CGPoint)velocity
+              targetContentOffset:(inout CGPoint *)targetContentOffset{
     // 设置targetContentOffset之后就不会有惯性减速了
     *targetContentOffset = scrollView.contentOffset;
     _endX = scrollView.contentOffset.x;
@@ -182,6 +186,8 @@
 }
 
 
-
+- (void)dealloc {
+    NSLog(@"%@ dealloc , 没有timer循环引用",[self class]);
+}
 
 @end
