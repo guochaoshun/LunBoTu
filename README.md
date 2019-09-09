@@ -3,8 +3,8 @@
 
 主要参考代码 : https://github.com/orzzh/WLScrollView , 这个是用scrollview做的,然后自己写的cell复用,觉得有点复杂,所以在我的例子中直接用了UICollectionView
 
-
-![Image](https://raw.githubusercontent.com/guochaoshun/LunBoTu/master/QQ20190521.gif)
+git上的gif图加载很慢,可以到博客看看效果
+![Image](https://img-blog.csdnimg.cn/20190521113330449.gif)
 
 
 
